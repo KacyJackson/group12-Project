@@ -45,7 +45,6 @@
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <script type="text/javascript">
     // Event listener for our cat-button
-    $(").on("click", function() {
 
       // Storing our giphy API URL for a random cat image
       var queryURL = "https://proapi.whitepages.com/3.2/identity_check.json?primary.name=Drama+Number&primary.phone=6464806649&primary.address.street_line_1=302+Gorham+Ave&primary.address.city=Ashland&primary.address.state_code=MT&primary.address.postal_code=59004&primary.address.country_code=US&secondary.name=Fake+Name&secondary.phone=6464806649&secondary.address.street_line_1=302+Gorham+Ave&secondary.address.city=Ashland&secondary.address.state_code=MT&secondary.address.postal_code=59004&secondary.address.country_code=US&email_address=medjalloh1@yahoo.com&ip_address=64.124.61.215&api_key=	818356de4c7f4ac49a7f1382bc69cfda";
@@ -54,7 +53,7 @@
      
 	$.ajax({url: queryURL, method: "GET"}).done(function (response){
 		var  results = response.data;
-	 console.log(results) });
+	 console.log(response)});
      
 
       </script>
