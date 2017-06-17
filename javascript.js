@@ -2,15 +2,15 @@ var btn = document.getElementById("btn");
 
 btn.addEventListener("click", function(){
 
-
+	
 });
 
 // authentication key
-var authKey = "818356de4c7f4ac49a7f1382bc69cfda";
+var authKey = "";
 
 //  variables to hold results
 var Name = "";
-var Email Address = "";
+var = Email Address;
 
 var queryURLBase = "";
 
