@@ -1,9 +1,16 @@
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyC5yaiVoPynJdJX9pg8IfFJEp98KUdfzic",
+    authDomain: "group12-project.firebaseapp.com",
+    databaseURL: "https://group12-project.firebaseio.com",
+    projectId: "group12-project",
+    storageBucket: "group12-project.appspot.com",
+    messagingSenderId: "415213458406"
+  };
+  firebase.initializeApp(config);
+
 var btn = document.getElementById("btn");
-
-btn.addEventListener("click", function(){
-
-
-});
+var database = firebase.database();
 
 
 
@@ -15,61 +22,37 @@ btn.addEventListener("click", function(){
 var Phone = ""; 
 
 
+$("#Phone").val(Phone);
 
-
-   // var queryURL = "https://proapi.whitepages.com/3.2/identity_check?api_key=818356de4c7f4ac49a7f1382bc69cfda&email_address="+ Email+"&primary.address.city="+ city+"&primary.address.country_code="+ countryCode+"&primary.address.postal_code="+ postalCode+"&primary.address.state_code="+ stateCode+"&primary.address.street_line_1="+ primaryAd+"&primary.address.street_line_2="+ primaryAd2+"&primary.name="+ Name+"&primary.phone="+ Phone+"";
-        // Perfoming an AJAX GET request to our queryURL
-     
- 
-
-	 $("#Phone").val(Phone);
-
-	  $("#btn").on("click", function(event) {
-  // This line allows us to take advantage of the HTML "submit" property
-  // This way we can hit enter on the keyboard and it registers the search
-  // (in addition to clicks).
+$("#btn").on("click", function(event) {
   event.preventDefault();
 
 	// Grabbing text the user typed into the search input
-  	 var input = $("#Phone").val().trim();
-  	 var queryURL ="https://proapi.whitepages.com/3.0/phone.json?api_key=bbefe26042d944dbbf213f36a76be0e0&phone="+ input;
-  	 $.ajax({
+	var input = $("#Phone").val().trim();
+  $("#Phone").val("");
+	var queryURL ="https://proapi.whitepages.com/3.0/phone.json?api_key=bbefe26042d944dbbf213f36a76be0e0&phone="+ input;
 
-  // The 'type' property sets the HTTP method.
-  // A value of 'PUT' or 'DELETE' will trigger a preflight request.
-  type: 'GET',
-
- 
-  url: queryURL,
-
-  
-  contentType: 'text/plain',
-
-  xhrFields: {
-    
-    withCredentials: false
-  },
-
-  headers: {
-    
-  },
-
-  success: function(response) {
-   console.log(response);
-  },
-
-  error: function() {
-  }
-});
- 
-
-
-  	
+	$.ajax({
+    url: queryURL,
+    method: "GET"
+  })
+  .done(function(response) {
+    console.log(response);
+    database.ref().set({
+      result: response
+    })
+  });   	
 
 });
 
-
-
+var latRef = database.ref('result/current_addresses/0/lat_long/latitude');
+var longRef = database.ref('result/current_addresses/0/lat_long/longitude');
+latRef.on('value', function(snapshot) {
+  console.log(snapshot.val());
+longRef.on('value', function(snapshot) {
+console.log(snapshot.val());
+});
+});
  
 
  
@@ -82,7 +65,7 @@ var Phone = "";
 
 
 
-	console.log(Phone);
+	
 	
 
 
